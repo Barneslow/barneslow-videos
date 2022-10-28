@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Card from "./card";
+import Card from "./Card";
 import styles from "./SectionCard.module.css";
 
 const SectionCard = (props) => {
