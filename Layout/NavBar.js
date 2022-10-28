@@ -13,24 +13,22 @@ const NavBar = () => {
   const [didToken, setDidToken] = useState("");
 
   useEffect(() => {
-    async function getUsername() {
+    const applyUsernameInNav = async () => {
       try {
         const { email } = await magic.user.getMetadata();
-
         const didToken = await magic.user.getIdToken();
-
         if (email) {
           setUsername(email);
           setDidToken(didToken);
         }
       } catch (error) {
-        console.log("Error retrieving email:", error);
+        console.error("Error retrieving email", error);
       }
-    }
-    getUsername();
+    };
+    applyUsernameInNav();
   }, []);
 
-  async function handleSignOut(e) {
+  const handleSignout = async (e) => {
     e.preventDefault();
 
     try {
@@ -44,10 +42,10 @@ const NavBar = () => {
 
       const res = await response.json();
     } catch (error) {
-      console.error(error);
+      console.error("Error logging out lol", error);
       router.push("/login");
     }
-  }
+  };
 
   function handleHome(e) {
     e.preventDefault();
@@ -101,7 +99,7 @@ const NavBar = () => {
             {showDropDown && (
               <div className={styles.navDropdown}>
                 <div>
-                  <a className={styles.linkName} onClick={handleSignOut}>
+                  <a className={styles.linkName} onClick={handleSignout}>
                     Sign out
                   </a>
                   <div className={styles.lineWrapper}></div>
